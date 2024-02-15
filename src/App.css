@@ -1,23 +1,28 @@
-.App {
-  text-align: center;
+.contenedor-redondo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.contenedor-redondo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container-profile {
   display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 1vw;
+  align-items: center;
+  margin-left: 70%;
+}
+
+.desplazoDerecha{
+  margin-left: 1%;
+}
+
+.fondoAgenda{
+  background-color: #FFE489;
+  height: 90vh;
 }
