@@ -5,6 +5,7 @@ import defaultUser from "./resources/default_user.jpg";
 import './App.css';
 import SubMenuRegistered from "./components/subMenuRegistred";
 import SubMenuUnregistered from "./components/subMenuUnregistered";
+import ListContactBook from "./components/ListContactBook";
 
 class App extends Component {
   
@@ -35,7 +36,7 @@ class App extends Component {
               </a>
             </li>
             </div>
-            <div className="container-profile d-flex align-items-center">
+            <div className="container-profile d-flex align-items-end">
             <li className="nav-item">
               <p className="text-light">Nombre Perfil</p>
             </li>
@@ -44,8 +45,8 @@ class App extends Component {
            {this.state.userRegistered ? <SubMenuRegistered></SubMenuRegistered> : <SubMenuUnregistered></SubMenuUnregistered> /* Evalues if the user is registered/logged or not*/}
         </nav>
         </div>
-        <div className="fondoAgenda">
-          
+        <div className="fondoAgenda d-flex justify-content-center align-items-center">
+          <ListContactBook></ListContactBook>
         </div>
       </div>
     );
