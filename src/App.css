@@ -67,3 +67,8 @@ img{
   height: 95%;
   width: 85%;
 }
+
+
+.gap-buttons{
+  gap:5px
+}
