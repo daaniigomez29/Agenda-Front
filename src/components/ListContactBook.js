@@ -54,8 +54,8 @@ class ListContactBook extends Component {
     render() { 
         const {contacts, currentContact, currentIndex, dni} = this.state
         return ( 
-            <div className='container container-contact-book  border-dark'>
-                <div className='row  border-dark'>
+            <div className='container container-contact-book border-dark h-75'>
+                <div className='row border-dark'>
                     <div className='col-md-6'>
                     <h2>Agenda</h2>
                     </div>
@@ -65,6 +65,13 @@ class ListContactBook extends Component {
                 </div>
                 <div className='row'>
                 <div className='col-md-6  border-dark h-75 '> {/* Columna izquierda lista de contactos*/}
+                    <form>
+                        <label>Buscador DNI</label>
+                        <div className='d-flex gap-3'>
+                        <input type='text' className='form-control w-50'></input>
+                        <button type='submit' className='btn btn-primary'>Buscar</button>
+                        </div>
+                    </form>
                     <ul className='list-group'>
                         {contacts && contacts.map((contact, index) => (
                             <li className={"list-group-item " + (index === currentIndex ? "active" : "")} onClick={() => this.setActiveContact(contact, index)} key={index}>

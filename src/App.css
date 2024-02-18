@@ -25,7 +25,7 @@ img{
 
 .encimaImagen{
   opacity: 1;
-  transition: .2s ease;
+  transition: .5s ease;
 }
 
 .encimaImagen:hover{
@@ -46,7 +46,7 @@ img{
   position: absolute;
   top: 100%;
   right: 0%;
-  width: 15vw;
+  width: 10vw;
   max-height: 0px;
   overflow: hidden;
   transition: max-height 0.5s;  
@@ -60,15 +60,4 @@ img{
   background-color: white;
   padding: 20px;
   margin: 10px;
-}
-
-
-.container-contact-book{
-  height: 95%;
-  width: 85%;
-}
-
-
-.gap-buttons{
-  gap:5px
 }
