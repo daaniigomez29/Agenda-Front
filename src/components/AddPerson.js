@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import ContactDataService from "../services/contactBook.service";
-import { Link } from "react-router-dom";
 
 class AddPerson extends Component {
     constructor(){
         super()
+        let correctInput = true
         this.state = {
-            id: '',
             firstName: '',
             lastName: '',
             street: '',
             postalCode: 0,
             city: '',
-            birthday: new Date(),
+            birthday: null
         }
     }
 
@@ -26,50 +23,57 @@ class AddPerson extends Component {
     onChangeValue = (e) => {
         const nameValue = e.target.name;
         const formValue = e.target.value;
-        this.setState({[nameValue]: formValue})    
+        this.setState({[nameValue]: formValue})  
     }
-
-    onChangeValueDate = (date) => {
-        
-
-        this.setState = ({
-            birthday : date
-        })
-        
-    }
-
+    
     handleSubmit = () =>{
         let data = this.state;
         console.log(data)
         ContactDataService.addContact(data)
     }
 
+    checkInputs = () =>{
+        let contador = 0
+        let firstName = this.state.firstName
+        let lastName = this.state.lastName
+        let street = this.state.street
+        let postalCode = this.state.postalCode
+        let city = this.state.city
+        let birthday = this.state.birthday
+    }
+
     render() {
         return (
-            <div className="container border border-dark">
+            <div className="container position-formAddPerson shadow">
                 <form onSubmit={this.handleSubmit}>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Nombre</label>
-                        <input className='form-control' id='firstName' name='firstName' onChange={this.onChangeValue} placeholder='Introduzca el nombre del contacto'></input>
+                        <input className='form-control shadow' required id='firstName' name='firstName' onChange={this.onChangeValue} placeholder='Introduzca el nombre del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Apellidos</label>
-                        <input className='form-control' id='lastName' name='firstName' onChange={this.onChangeValue} placeholder='Introduzca los apellidos del contacto'></input>
+                        <input className='form-control shadow' id='lastName' required name='lastName' onChange={this.onChangeValue} placeholder='Introduzca los apellidos del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Dirección</label>
-                        <input className='form-control' id='street' name='firstName' onChange={this.onChangeValue} placeholder='Introduzca la diracción del contacto'></input>
+                        <input className='form-control shadow' id='street' required name='street' onChange={this.onChangeValue} placeholder='Introduzca la dirección del contacto'></input>
+                    </div>
+                </div>
+                <div className='row p-2'>
+                    <div className='col-md-12'>
+                        <label className='form-label'>Código postal</label>
+                        <input className='form-control shadow' id='postalCode' required name='postalCode' onChange={this.onChangeValue} placeholder='Introduzca el código postal del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Ciudad</label>
-                        <input className='form-control' id='city' name='firstName' onChange={this.onChangeValue} placeholder='Introduzca la ciudad del contacto'></input>
+                        <input className='form-control shadow' id='city' required name='city' onChange={this.onChangeValue} placeholder='Introduzca la ciudad del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
@@ -77,7 +81,7 @@ class AddPerson extends Component {
                         <div className='row'>
                         <label className='form-label'>Fecha de nacimiento</label>
                         </div>
-                        <DatePicker selected={this.state.birthday} onChange={this.onChangeValueDate} placeholderText='Seleccione la fecha de nacimiento del contacto' dateFormat={'dd/MM/yyyy'}></DatePicker>
+                        <input type='date' className='shadow' onChange= {(e) => this.setState({birthday : e.target.value})} value={this.state.birthday}></input>
                     </div>
                 </div>
                 <div className='row p-2'>

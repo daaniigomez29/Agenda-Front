@@ -7,12 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class ListContactBook extends Component {
     constructor(props) {
         super(props);
-        
+        this.retrieveContacts = this.retrieveContacts.bind(this)
+        this.refreshList = this.refreshList.bind(this)
+        this.setActiveContact = this.setActiveContact.bind(this)
         this.state = {
             contacts: [],
             currentContact: null,
             currentIndex: -1,
-            searchDNI: ""
+            searchName: ""
         }
     }
 
@@ -50,11 +52,23 @@ class ListContactBook extends Component {
     }
 
 
+    delete = (id) => {
+        console.log(id)
+        /*
+        ContactDataService.deleteContact(id)
+        .then(response =>{
+            console.log(response)
+        })
+        .catch(e =>{
+            console.log(e)
+        })
+        */
+    }
     
     render() { 
-        const {contacts, currentContact, currentIndex, dni} = this.state
+        const {contacts, currentContact, currentIndex, name} = this.state
         return ( 
-            <div className='container container-contact-book border-dark h-75'>
+            <div className='container container-contact-book border-dark h-75 shadow'>
                 <div className='row border-dark'>
                     <div className='col-md-6'>
                     <h2>Agenda</h2>
@@ -66,10 +80,12 @@ class ListContactBook extends Component {
                 <div className='row'>
                 <div className='col-md-6  border-dark h-75 '> {/* Columna izquierda lista de contactos*/}
                     <form>
-                        <label>Buscador DNI</label>
-                        <div className='d-flex gap-3'>
-                        <input type='text' className='form-control w-50'></input>
+                        <label>Buscador contacto</label>
+                        <div className='mb-3'>
+                        <form className='d-flex gap-2'>
+                        <input type='text' className='form-control w-50' placeholder='Introduzca el nombre del contacto'></input>
                         <button type='submit' className='btn btn-primary'>Buscar</button>
+                        </form>
                         </div>
                     </form>
                     <ul className='list-group'>
@@ -119,9 +135,9 @@ class ListContactBook extends Component {
                                 </label>{" "}
                                 {currentContact.birthday}
                             </div>
-                            <div>
+                            <div className='d-flex gap-2'>
                                <Link to={"/person/" + currentContact.id} className="badge bg-info">Editar</Link>
-                               <Link to={"/person/" + currentContact.id} className="badge bg-danger">Eliminar</Link>
+                               <button className="badge bg-danger" onClick={() => this.delete(currentContact.id)}>Eliminar</button>
                             </div>
                         </div>
 
