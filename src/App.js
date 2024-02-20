@@ -10,6 +10,7 @@ import EditPerson from "./components/EditPerson";
 import AddPerson from "./components/AddPerson";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import UserDetails from "./components/UserDetails"
 
 
 class App extends Component {
@@ -63,6 +64,8 @@ class App extends Component {
             <Route exact path="/add" component={AddPerson} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/profile" component={UserDetails} />
+
         </div>
       </div>
       </Router>
