@@ -14,7 +14,9 @@ class ListContactBook extends Component {
             contacts: [],
             currentContact: null,
             currentIndex: -1,
-            searchName: ""
+            searchName: "",
+            contactsSearched : [],
+            contactsFlag: []
         }
     }
 
@@ -27,7 +29,8 @@ class ListContactBook extends Component {
         ContactDataService.getAll()
         .then(response =>{
             this.setState({
-                contacts : response.data
+                contacts : response.data,
+                contactsFlag : this.state.contacts
             });
             console.log(response.data)
         })
@@ -54,7 +57,6 @@ class ListContactBook extends Component {
 
     delete = (id) => {
         console.log(id)
-        /*
         ContactDataService.deleteContact(id)
         .then(response =>{
             console.log(response)
@@ -62,11 +64,36 @@ class ListContactBook extends Component {
         .catch(e =>{
             console.log(e)
         })
-        */
+    }
+
+    onChangeSearcherName = (e) =>{
+        let value = e.target.value
+
+        this.setState({
+            searchName : value
+        })
+    }
+
+    searchName = () => {
+        console.log(this.state.searchName)
+        if(this.state.searchName != null){
+        for(let contact of this.state.contacts){
+            if(contact.firstName.contains(this.state.searchName)){
+                    this.state.contactsSearched.push(contact)
+            }
+        }
+        this.setState({
+            contacts : this.state.contactsSearched
+        })
+    } else{
+        this.setState({
+            contacts : this.state.contactsFlag
+        })
+    }
     }
     
     render() { 
-        const {contacts, currentContact, currentIndex, name} = this.state
+        const {contacts, currentContact, currentIndex, name, contactsSearched, contactsFlag} = this.state
         return ( 
             <div className='container container-contact-book border-dark h-75 shadow'>
                 <div className='row border-dark'>
@@ -79,15 +106,13 @@ class ListContactBook extends Component {
                 </div>
                 <div className='row'>
                 <div className='col-md-6  border-dark h-75 '> {/* Columna izquierda lista de contactos*/}
-                    <form>
                         <label>Buscador contacto</label>
                         <div className='mb-3'>
-                        <form className='d-flex gap-2'>
-                        <input type='text' className='form-control w-50' placeholder='Introduzca el nombre del contacto'></input>
+                        <form className='d-flex gap-2' name="searchName" onSubmit={() => {this.searchName()}}>
+                        <input type='text' className='form-control w-50' onChange={this.onChangeSearcherName} value={name} placeholder='Introduzca el nombre del contacto'></input>
                         <button type='submit' className='btn btn-primary'>Buscar</button>
                         </form>
                         </div>
-                    </form>
                     <ul className='list-group'>
                         {contacts && contacts.map((contact, index) => (
                             <li className={"list-group-item " + (index === currentIndex ? "active" : "")} onClick={() => this.setActiveContact(contact, index)} key={index}>

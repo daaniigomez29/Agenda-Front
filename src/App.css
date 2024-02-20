@@ -66,3 +66,7 @@ img{
   position: relative;
   right: 5%;
 }
+
+.onLoginRegister:hover{
+  background-color: blue;
+}

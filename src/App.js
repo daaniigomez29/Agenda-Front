@@ -8,6 +8,8 @@ import SubMenuUnregistered from "./components/subMenuUnregistered";
 import ListContactBook from "./components/ListContactBook";
 import EditPerson from "./components/EditPerson";
 import AddPerson from "./components/AddPerson";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 
 class App extends Component {
@@ -59,6 +61,8 @@ class App extends Component {
             <Route exact path={["/", "/person"]} component={ListContactBook} />
             <Route path="/person/:id" component={EditPerson} />
             <Route exact path="/add" component={AddPerson} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
         </div>
       </div>
       </Router>

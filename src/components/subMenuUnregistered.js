@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 class SubMenuUnregistered extends Component {
     constructor(props) {
@@ -10,9 +11,13 @@ class SubMenuUnregistered extends Component {
             <div className="submenu-wrap" id="subMenu">
               <div className="submenu">
                 <div className="user-info">
-                <a>Registrarse</a>
+                <Link to={"/register"} className="btn onLoginRegister">
+                  Registrarse
+                </Link>
                 <hr></hr>
-                <a>Iniciar sesión</a>
+                <Link to={"/login"} className="btn">
+                  Iniciar sesión
+                </Link>
                 </div>
               </div>
             </div>
