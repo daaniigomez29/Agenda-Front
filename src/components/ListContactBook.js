@@ -10,6 +10,7 @@ class ListContactBook extends Component {
         this.retrieveContacts = this.retrieveContacts.bind(this)
         this.refreshList = this.refreshList.bind(this)
         this.setActiveContact = this.setActiveContact.bind(this)
+        this.delete = this.delete.bind(this)
         this.state = {
             contacts: [],
             currentContact: null,
@@ -30,9 +31,7 @@ class ListContactBook extends Component {
         .then(response =>{
             this.setState({
                 contacts : response.data,
-                contactsFlag : this.state.contacts
             });
-            console.log(response.data)
         })
         .catch(e => {
             console.log(e)
@@ -77,8 +76,8 @@ class ListContactBook extends Component {
     searchName = () => {
         console.log(this.state.searchName)
         if(this.state.searchName != null){
-        for(let contact of this.state.contacts){
-            if(contact.firstName.contains(this.state.searchName)){
+        for(let contact of this.state.contactsFlag){
+            if(contact.firstName.includes(this.state.searchName)){
                     this.state.contactsSearched.push(contact)
             }
         }
@@ -108,10 +107,10 @@ class ListContactBook extends Component {
                 <div className='col-md-6  border-dark h-75 '> {/* Columna izquierda lista de contactos*/}
                         <label>Buscador contacto</label>
                         <div className='mb-3'>
-                        <form className='d-flex gap-2' name="searchName" onSubmit={() => {this.searchName()}}>
+                        <div className='d-flex gap-2'>
                         <input type='text' className='form-control w-50' onChange={this.onChangeSearcherName} value={name} placeholder='Introduzca el nombre del contacto'></input>
-                        <button type='submit' className='btn btn-primary'>Buscar</button>
-                        </form>
+                        <button type='submit' className='btn btn-primary' onClick={() => {this.searchName()}}>Buscar</button>
+                        </div>
                         </div>
                     <ul className='list-group'>
                         {contacts && contacts.map((contact, index) => (
@@ -162,7 +161,7 @@ class ListContactBook extends Component {
                             </div>
                             <div className='d-flex gap-2'>
                                <Link to={"/person/" + currentContact.id} className="badge bg-info">Editar</Link>
-                               <button className="badge bg-danger" onClick={() => this.delete(currentContact.id)}>Eliminar</button>
+                               <button className="badge bg-danger" onClick={this.delete(currentContact.id)}>Eliminar</button>
                             </div>
                         </div>
 
