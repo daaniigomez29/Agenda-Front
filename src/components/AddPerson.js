@@ -45,7 +45,6 @@ class AddPerson extends Component {
     render() {
         return (
             <div className="container position-formAddPerson shadow">
-                <form onSubmit={this.handleSubmit}>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Nombre</label>
@@ -86,10 +85,9 @@ class AddPerson extends Component {
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
-                        <button type='submit' className='btn btn-primary'>Confirmar</button>
+                    <button onClick={() => this.handleSubmit()} className='btn btn-primary'>Confirmar</button>
                     </div>
                 </div>
-                </form>
             </div>
             
         );

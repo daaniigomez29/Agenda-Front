@@ -39,7 +39,6 @@ img{
 
 .fondoAgenda{
   background-color: #FFE489;
-  height: 90vh;
 }
 
 .submenu-wrap{
@@ -69,4 +68,42 @@ img{
 
 .onLoginRegister:hover{
   background-color: blue;
+}
+
+
+.height-progress_bar{
+  height: 6vh;
+}
+
+
+.position_progress_bar{
+  position: relative;
+  margin-top: 3vh;
+  right: 12%;
+}
+
+.position_div_progress_img{
+  position: relative;
+  right: 12%
+}
+
+.progress-bar{
+  width: auto;
+}
+
+.progress_an{
+  background-color: #00d7fd;
+  width: var(--pbWidth);
+}
+
+@keyframes expandAnimation {
+  0% {
+    width: 0;
+  }
+  30%{
+    width: 1vw;
+  }
+  100% {
+    width: var(--pbWidth);
+  }
 }
