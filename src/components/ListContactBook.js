@@ -31,6 +31,7 @@ class ListContactBook extends Component {
         .then(response =>{
             this.setState({
                 contacts : response.data,
+                contactsFlag : response.data
             });
         })
         .catch(e => {
@@ -63,6 +64,7 @@ class ListContactBook extends Component {
         .catch(e =>{
             console.log(e)
         })
+        this.retrieveContacts()
     }
 
     onChangeSearcherName = (e) =>{
@@ -74,8 +76,11 @@ class ListContactBook extends Component {
     }
 
     searchName = () => {
+        this.setState({
+            contactsSearched : []
+        })
         console.log(this.state.searchName)
-        if(this.state.searchName != null){
+        if(this.state.searchName != ""){
         for(let contact of this.state.contactsFlag){
             if(contact.firstName.includes(this.state.searchName)){
                     this.state.contactsSearched.push(contact)
@@ -161,7 +166,7 @@ class ListContactBook extends Component {
                             </div>
                             <div className='d-flex gap-2'>
                                <Link to={"/person/" + currentContact.id} className="badge bg-info">Editar</Link>
-                               <button className="badge bg-danger" onClick={this.delete(currentContact.id)}>Eliminar</button>
+                               <button className="badge bg-danger" onClick={() => {this.delete(currentContact.id)}}>Eliminar</button>
                             </div>
                         </div>
 

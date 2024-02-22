@@ -29,11 +29,15 @@ class EditPerson extends Component {
     obtainValues = (id) => {
         ContactDataService.getContact(id)
         .then(response =>{
-            console.log(response.data.firstName)
+            console.log(response.data)
             this.setState({
-                firstName : response.data.firstName
+                firstName : response.data.firstName,
+                lastName : response.data.lastName,
+                street : response.data.street,
+                postalCode : response.data.postalCode,
+                city : response.data.city,
+                birthday : response.data.birthday
             })
-            console.log(this.state)
         })
         .catch(e =>{
             console.log(e)
@@ -48,7 +52,13 @@ class EditPerson extends Component {
     
     handleSubmit = () =>{
         let data = this.state;
-        ContactDataService.editContact(data, this.state.id)
+        ContactDataService.editContact(this.state.id, data).
+        then(response =>{
+            console.log(response)
+        })
+        .catch(e =>{
+            console.log(e)
+        })
     }
 
     checkInputs = () =>{
@@ -64,35 +74,34 @@ class EditPerson extends Component {
     render() {
         return (
             <div className="container position-formAddPerson shadow">
-                <form onSubmit={this.handleSubmit}>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Nombre</label>
-                        <input className='form-control shadow' required id='firstName' name='firstName' onChange={this.onChangeValue} placeholder='Introduzca el nombre del contacto'></input>
+                        <input className='form-control shadow' required id='firstName' value={this.state.firstName} name='firstName' onChange={this.onChangeValue} placeholder='Introduzca el nombre del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Apellidos</label>
-                        <input className='form-control shadow' id='lastName' required name='lastName' onChange={this.onChangeValue} placeholder='Introduzca los apellidos del contacto'></input>
+                        <input className='form-control shadow' id='lastName' required name='lastName' value={this.state.lastName} onChange={this.onChangeValue} placeholder='Introduzca los apellidos del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Dirección</label>
-                        <input className='form-control shadow' id='street' required name='street' onChange={this.onChangeValue} placeholder='Introduzca la dirección del contacto'></input>
+                        <input className='form-control shadow' id='street' required name='street' value={this.state.street} onChange={this.onChangeValue} placeholder='Introduzca la dirección del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Código postal</label>
-                        <input className='form-control shadow' id='postalCode' required name='postalCode' onChange={this.onChangeValue} placeholder='Introduzca el código postal del contacto'></input>
+                        <input className='form-control shadow' id='postalCode' required name='postalCode' value={this.state.postalCode} onChange={this.onChangeValue} placeholder='Introduzca el código postal del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Ciudad</label>
-                        <input className='form-control shadow' id='city' required name='city' onChange={this.onChangeValue} placeholder='Introduzca la ciudad del contacto'></input>
+                        <input className='form-control shadow' id='city' required name='city' value={this.state.city} onChange={this.onChangeValue} placeholder='Introduzca la ciudad del contacto'></input>
                     </div>
                 </div>
                 <div className='row p-2'>
@@ -105,10 +114,9 @@ class EditPerson extends Component {
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
-                        <button type='submit' className='btn btn-primary'>Confirmar</button>
+                        <button onClick={() => this.handleSubmit()} className='btn btn-primary'>Confirmar</button>
                     </div>
                 </div>
-                </form>
             </div>
             
         );
