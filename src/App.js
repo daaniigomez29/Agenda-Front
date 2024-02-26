@@ -30,7 +30,7 @@ class App extends Component {
   render(){
   return (
     <Router>
-    <div>
+    <div className="fondoAgenda">
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
           <a className="navbar-brand desplazoDerecha">
@@ -57,7 +57,7 @@ class App extends Component {
            {this.state.userRegistered ? <SubMenuRegistered></SubMenuRegistered> : <SubMenuUnregistered></SubMenuUnregistered> /* Evalues if the user is registered/logged or not*/}
         </nav>
         </div>
-        <div className="fondoAgenda d-flex justify-content-center align-items-center">
+        <div className="positionDivRoute d-flex justify-content-center align-items-center">
           {/*El en switch se renderizarán todas los compoentes cuya URL coincidan con la activa*/}
             <Route exact path={["/", "/person"]} component={ListContactBook} />
             <Route path="/person/:id" component={EditPerson} />

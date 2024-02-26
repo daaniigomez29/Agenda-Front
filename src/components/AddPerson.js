@@ -44,7 +44,7 @@ class AddPerson extends Component {
 
     render() {
         return (
-            <div className="container position-formAddPerson shadow">
+            <div className="container shadow">
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Nombre</label>

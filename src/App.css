@@ -39,6 +39,30 @@ img{
 
 .fondoAgenda{
   background-color: #FFE489;
+  height: 100vh;
+}
+
+.positionDivRoute{
+  position: relative;
+  top: 10vh;
+}
+
+.container-register{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  height: 45vh;
+}
+
+.buttonSize{
+  width: 19vw;
+}
+
+.rowSize{
+  width: 20vw;
+  height: 9.5vh;
 }
 
 .submenu-wrap{
