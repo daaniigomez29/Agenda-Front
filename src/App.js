@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import defaultUser from "./resources/default_user.jpg";
+import bisbal from "./resources/bisbal.jpeg";
 import './App.css';
 import SubMenuRegistered from "./components/subMenuRegistred";
 import SubMenuUnregistered from "./components/subMenuUnregistered";
@@ -33,6 +34,7 @@ class App extends Component {
     <div className="fondoAgenda">
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <img className="contenedor-redondo" src={bisbal}/>
           <a className="navbar-brand desplazoDerecha">
             Agenda
           </a>
@@ -52,7 +54,7 @@ class App extends Component {
             <li className="nav-item">
               <p className="text-light">Nombre Perfil</p>
             </li>
-            <img className="contenedor-redondo encimaImagen" src = {defaultUser} onClick={this.cargarMenu}/>
+            <img className="contenedor-redondo encimaImagen pointer" src = {defaultUser} onClick={this.cargarMenu}/>
             </div>
            {this.state.userRegistered ? <SubMenuRegistered></SubMenuRegistered> : <SubMenuUnregistered></SubMenuUnregistered> /* Evalues if the user is registered/logged or not*/}
         </nav>
