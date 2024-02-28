@@ -19,7 +19,7 @@ class ListContactBook extends Component {
             searchName: "",
             contactsSearched: [],
             contactsFlag: [],
-            progress: 32
+            progress: 0
         }
     }
 
@@ -33,7 +33,8 @@ class ListContactBook extends Component {
             .then(response => {
                 this.setState({
                     contacts: response.data,
-                    contactsFlag: response.data
+                    contactsFlag: response.data,
+                    progress: response.data.length
                 });
             })
             .catch(e => {
@@ -124,7 +125,7 @@ class ListContactBook extends Component {
                         <div className='d-flex align-items-center position_div_progress_img'>
                             <img src={goku_loop}/>
                             <div class="progress w-75 height-progress_bar position_progress_bar triangulo">
-                                <div class="progress-bar progress_an" role="progressbar" style={{ '--pbWidth': `${pbValue}%`, animation: 'expandAnimation 1s ease-in-out forwards', animationDelay: '0s' }} aria-valuenow={pbValue} aria-valuemin="0" aria-valuemax="100" >{pbValue}%</div>
+                                <div class="progress-bar progress_an" role="progressbar" style={{ '--pbWidth': `${pbValue}%`, animation: `${this.state.progress > 1 ? "expandAnimation" : ""} 1s ease-in-out forwards`, animationDelay: '0s' }} aria-valuenow={pbValue} aria-valuemin="0" aria-valuemax="100" >{pbValue}%</div>
                             </div>
                         </div>
                         <div>
