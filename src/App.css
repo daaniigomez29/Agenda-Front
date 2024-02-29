@@ -39,21 +39,12 @@
 
 .fondoAgenda{
   background-color: #FFE489;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .positionDivRoute{
   position: relative;
   top: 10vh;
-}
-
-.container-register{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 20vw;
-  height: 50vh;
 }
 
 .buttonSize{
@@ -96,7 +87,7 @@
 
 
 .height-progress_bar{
-  height: 6vh;
+  height: 8vh;
 }
 
 

@@ -3,6 +3,7 @@ import ContactDataService from '../services/contactBook.service'
 import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import goku_loop from "../resources/goku_kame_1_loop_fast_2.gif"
+import bisbal_vegano from "../resources/bisbal_vegano.jpeg"
 
 
 class ListContactBook extends Component {
@@ -19,7 +20,9 @@ class ListContactBook extends Component {
             searchName: "",
             contactsSearched: [],
             contactsFlag: [],
-            progress: 0
+            progress: 0,
+            currentPage: 1,
+            contactsPerPage: 5
         }
     }
 
@@ -42,6 +45,7 @@ class ListContactBook extends Component {
             })
     }
 
+
     refreshList() {
         this.retrieveContacts();
         this.setState({
@@ -58,8 +62,8 @@ class ListContactBook extends Component {
     }
 
     delete = (id) => {
-        console.log(id)
-        ContactDataService.deleteContact(id)
+        if(window.confirm("Seguro que quieres borrar este contacto?")){
+            ContactDataService.deleteContact(id)
             .then(response => {
                 console.log(response)
             })
@@ -67,6 +71,7 @@ class ListContactBook extends Component {
                 console.log(e)
             })
         this.retrieveContacts()
+        }
     }
 
     onChangeSearcherName = (e) => {
@@ -99,7 +104,10 @@ class ListContactBook extends Component {
     }
 
     render() {
-        const { contacts, currentContact, currentIndex, name, contactsSearched, contactsFlag } = this.state
+        const { contacts, currentContact, currentIndex, name, contactsSearched, contactsFlag, currentPage, contactsPerPage } = this.state
+        const indexOfLastContact = currentPage * contactsPerPage;
+        const indexOfFirstContact = indexOfLastContact - contactsPerPage;
+        const currentContacts = contacts.slice(indexOfFirstContact, indexOfLastContact)
         let maxContacts = 50
         let pbValue = Math.round((this.state.progress / maxContacts) * 100)
 
@@ -116,28 +124,40 @@ class ListContactBook extends Component {
                 <div className='row'>
                     <div className='col-md-6  border-dark h-75 '> {/* Columna izquierda lista de contactos*/}
                         <label>Buscador contacto</label>
-                        <div className='mb-3'>
+                        <div className='row'>
                             <div className='d-flex gap-2'>
                                 <input type='text' className='form-control w-50' onChange={this.onChangeSearcherName} value={name} placeholder='Introduzca el nombre del contacto'></input>
                                 <button type='submit' className='btn btn-primary' onClick={() => { this.searchName() }}>Buscar</button>
                             </div>
-                        </div>
                         <div className='d-flex align-items-center position_div_progress_img'>
                             <img src={goku_loop}/>
-                            <div class="progress w-75 height-progress_bar position_progress_bar triangulo">
+                            <div class="progress w-75 h-50 position_progress_bar triangulo">
                                 <div class="progress-bar progress_an" role="progressbar" style={{ '--pbWidth': `${pbValue}%`, animation: `${this.state.progress > 1 ? "expandAnimation" : ""} 1s ease-in-out forwards`, animationDelay: '0s' }} aria-valuenow={pbValue} aria-valuemin="0" aria-valuemax="100" >{pbValue}%</div>
                             </div>
                         </div>
-                        <div>
+                        </div>
+
+                        <div className='mb-4 mt-3'>
                         <ul className='list-group'>
-                            {contacts && contacts.map((contact, index) => (
+                            {currentContacts.map((contact, index) => (
                                 <li className={"list-group-item " + (index === currentIndex ? "active" : "")} onClick={() => this.setActiveContact(contact, index)} key={index}>
                                     {contact.firstName + " " + contact.lastName}
                                 </li>
                             ))}
                         </ul>
                         </div> 
-                    </div>
+                    <nav>
+                    <ul className="pagination">
+                        {Array.from({ length: Math.ceil(contacts.length / contactsPerPage) }, (_, index) => (
+                            <li className={`page-item ${index + 1 === currentPage ? 'active' : ''}`} key={index}>
+                                <button className="page-link" onClick={() => this.setState({ currentPage: index + 1 })}>
+                                    {index + 1}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+                </div>
                     <div className='col-md-6  border-dark h-75'>  {/* Columna derecha info contacto*/}
                         {currentContact ? (
                             <div>
@@ -180,6 +200,9 @@ class ListContactBook extends Component {
                                 <div className='d-flex gap-2'>
                                     <Link to={"/person/" + currentContact.id} className="badge bg-info">Editar</Link>
                                     <button className="badge bg-danger" onClick={() => { this.delete(currentContact.id) }}>Eliminar</button>
+                                </div>
+                                <div className='w-100 d-flex justify-content-center'>
+                                <img src={bisbal_vegano}/>
                                 </div>
                             </div>
 

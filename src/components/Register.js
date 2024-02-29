@@ -74,38 +74,38 @@ class Register extends Component {
 
     render() {
         return (
-            <div className='container bg-white shadow container-register'>
-                <div className='row'>
+            <div className='container-md-3 w-50 bg-white shadow d-flex justify-content-center align-items-center flex-column'>
+                <div className='row mt-3'>
                     <div className='col-md-12 mb-3'>
                         <h3>Registrarse</h3>
                     </div>
                 </div>
-                <div className='row rowSize'>
+                <div className='row rowSize w-100'>
                     <div className='col-md-12'>
                         <p>Correo electrónico</p>
                         <input type="text" required name='email' value={this.state.email} onChange={this.onChangeValue} className='form-control shadow'></input>
                     </div>
                 </div>
-                <div className='row rowSize'>
+                <div className='row rowSize mt-5 w-100'>
                     <div className='col-md-12'>
                         <p>Nombre de usuario</p>
                         <input type="text" required name='username' value={this.state.username} onChange={this.onChangeValue} className='form-control shadow'></input>
                        {this.state.inputCheckUsername ?  "" : <h6 className='text-danger '>Se necesitan al menos 5 caracteres</h6>}
                     </div>
                 </div>
-                <div className='row rowSize mt-3'>
+                <div className='row rowSize mt-5 w-100'>
                     <div className='col-md-12'>
                         <p>Contraseña</p>
                         <div className='d-flex'>
                             <input type={this.state.visibility ? "text" : "password"} required name='password' value={this.state.password} onChange={this.onChangeValue} className='form-control shadow' />
                             <button class="btn btn-outline-secondary shadow" type="button" onClick={this.togglePasswordVisibility}>Mostrar</button>
                         </div>
-                        {this.state.inputCheckPassword ?  "" : <h6 className='text-danger '>Se necesitan entre 6 y 9 caracteres</h6>}
+                        {this.state.inputCheckPassword ?  "" : <h6 className='text-danger'>Se necesitan entre 6 y 9 caracteres</h6>}
                     </div>
                 </div>
-                <div className='row mt-4'>
+                <div className='row mt-5 w-100'>
                     <div className='col-md-12'>
-                        <button className={`btn btn-info buttonSize shadow ${this.state.inputCheck ? "" : "disabled"}`}>Confirmar</button>
+                        <button className={`btn btn-info w-100 shadow ${this.state.inputCheck ? "" : "disabled"}`}>Confirmar</button>
                     </div>
                 </div>
                 <div className='row'>
