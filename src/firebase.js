@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+import {getAuth} from "firebase/auth";
+import {getFirestore} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { functions } from "firebase";
 
@@ -58,10 +58,10 @@ export const generateUserDocument = async (user, additionalData) => {
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    const { email, displayName, photoURL } = user;
+    const { email, username, photoURL } = user;
     try {
       await userRef.set({
-        displayName,
+        username,
         email,
         photoURL,
         ...additionalData

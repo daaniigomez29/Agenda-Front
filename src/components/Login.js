@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Link} from 'react-router-dom';
 
-
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            username: '',
             password: '',
             visibility: false,
             inputCheck : false,
@@ -31,7 +29,6 @@ class Login extends Component {
 
     checkInputs = () =>{
         let email = this.state.email
-        let username = this.state.username
         let password = this.state.password
         let contador = 0
         if(!email.includes("@gmail.com")){
@@ -39,16 +36,6 @@ class Login extends Component {
             inputCheck: false
            })
            contador++   
-        }
-        if(username.length > 0 && username.length < 5){
-            this.setState({
-                inputCheckUsername: false
-            })
-            contador++
-        } else{
-            this.setState({
-                inputCheckUsername: true
-            })
         }
 
         if(password.length > 0 &&  password.length < 6 || password.length > 9){
@@ -72,6 +59,12 @@ class Login extends Component {
             }) 
         }
     }
+
+    /*
+    async login(){
+       await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+    }
+    */
 
     render() { 
         return ( 

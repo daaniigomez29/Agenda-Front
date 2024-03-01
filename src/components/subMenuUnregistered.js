@@ -5,7 +5,6 @@ class SubMenuUnregistered extends Component {
     constructor(props) {
         super(props);
     }
-    state = {  }
     render() { 
         return ( 
             <div className="submenu-wrap" id="subMenu">

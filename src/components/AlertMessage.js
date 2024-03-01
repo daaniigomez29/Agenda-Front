@@ -6,7 +6,7 @@ class AlertMessage extends Component {
     }
     render() { 
         return ( 
-                <div className={`container ${this.props.showMessage} alert alert-${this.props.typeAlert}`} role="alert">
+                <div className={`${this.props.showMessage} alert alert-${this.props.typeAlert}`} role="alert">
                     {this.props.message}
                 </div>
          );
