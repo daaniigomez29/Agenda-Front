@@ -112,6 +112,7 @@ class ListContactBook extends Component {
         let pbValue = Math.round((this.state.progress / maxContacts) * 100)
 
         return (
+            contacts.length > 0 ? (
             <div className='container container-contact-book border-dark h-75 shadow'>
                 <div className='row border-dark'>
                     <div className='col-md-6'>
@@ -205,19 +206,22 @@ class ListContactBook extends Component {
                                 <img src={bisbal_vegano}/>
                                 </div>
                             </div>
-
                         ) :
                             (
                                 <div>
                                     <p>Por favor seleccione un contacto...</p>
                                 </div>
                             )
-
                         }
                     </div>
                 </div>
-
             </div>
+            ) :
+            (
+                    <div class="container alert alert-danger" role="alert">
+                        No se ha podido cargar la lista de contactos
+                    </div>  
+            )
         );
     }
 }

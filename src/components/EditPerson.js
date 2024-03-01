@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import ContactDataService from "../services/contactBook.service";
+import AlertMessage from './AlertMessage';
 
 
 class EditPerson extends Component {
     constructor(){
         super()
-        let correctInput = true
+        this.checkInputs = this.checkInputs.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             id: '',
             firstName: '',
@@ -14,7 +16,9 @@ class EditPerson extends Component {
             street: '',
             postalCode: 0,
             city: '',
-            birthday: null
+            birthday: null,
+            correctAdded : false,
+            showMessageError: "d-none"
         }
     }
 
@@ -52,13 +56,22 @@ class EditPerson extends Component {
     
     handleSubmit = () =>{
         let data = this.state;
-        ContactDataService.editContact(this.state.id, data).
-        then(response =>{
-            console.log(response)
-        })
-        .catch(e =>{
-            console.log(e)
-        })
+        if(this.checkInputs()){
+            ContactDataService.editContact(this.state.id, data).
+            then(response =>{
+                console.log(response)
+                this.setState({
+                    correctAdded : true,
+                })
+            })
+            .catch(e =>{
+                console.log(e)
+                this.setState({
+                    correctAdded : false
+                })
+            })
+
+        }
     }
 
     checkInputs = () =>{
@@ -69,11 +82,45 @@ class EditPerson extends Component {
         let postalCode = this.state.postalCode
         let city = this.state.city
         let birthday = this.state.birthday
+
+        if(firstName == null || firstName.length == 0){
+            contador++
+            console.log("Error en nombre")
+        }
+        if(lastName == null || lastName.length == 0){
+            contador++
+            console.log("Error en apellidos")
+        }
+        if(street == null || street.length == 0){
+            contador++
+            console.log("Error en dirección")
+        }
+        if(postalCode == null || isNaN(postalCode) || postalCode.length == 0){
+            contador++
+            console.log("Error en cod postal")
+        }
+        if(city == null || city.length == 0){
+            contador++
+            console.log("Error en ciudad")
+        }
+        if(birthday == null || birthday.length == 0){
+            contador++
+            console.log("Error en cumpleaño")
+        }
+        console.log(contador)
+        if(contador > 0){
+            return false
+        } else{
+            return true
+        }
     }
 
     render() {
         return (
             <div className="container position-formAddPerson shadow">
+                {this.state.correctAdded ? 
+                <AlertMessage typeAlert="success" showMessage={this.state.showMessageError} message="La inserción se ha realizado correctamente"/> : <AlertMessage typeAlert="danger" showMessage={this.state.showMessageError} message="El contacto no se ha podido añadir"/>
+                }
                 <div className='row p-2'>
                     <div className='col-md-12'>
                         <label className='form-label'>Nombre</label>
