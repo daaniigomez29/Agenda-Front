@@ -22,7 +22,8 @@ class ListContactBook extends Component {
             contactsFlag: [],
             progress: 0,
             currentPage: 1,
-            contactsPerPage: 5
+            contactsPerPage: 5,
+            contactsRetrieved: true
         }
     }
 
@@ -37,11 +38,14 @@ class ListContactBook extends Component {
                 this.setState({
                     contacts: response.data,
                     contactsFlag: response.data,
-                    progress: response.data.length
+                    progress: response.data.length,
                 });
             })
             .catch(e => {
                 console.log(e)
+                this.setState({
+                    contactsRetrieved: false
+                })
             })
     }
 
@@ -112,7 +116,8 @@ class ListContactBook extends Component {
         let pbValue = Math.round((this.state.progress / maxContacts) * 100)
 
         return (
-            contacts.length > 0 ? (
+            this.state.contactsRetrieved ? (
+                contacts.length > 0 ? (
             <div className='container container-contact-book border-dark h-75 shadow'>
                 <div className='row border-dark'>
                     <div className='col-md-6'>
@@ -216,6 +221,10 @@ class ListContactBook extends Component {
                     </div>
                 </div>
             </div>
+                ):
+                <div class="container alert alert-danger" role="alert">
+                        No hay ningún contacto en la agenda
+                    </div> 
             ) :
             (
                     <div class="container alert alert-danger" role="alert">
