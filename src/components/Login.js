@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Link} from 'react-router-dom';
+import {Link, useHistory as history} from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
 
 class Login extends Component {
     constructor(props) {
@@ -31,14 +33,14 @@ class Login extends Component {
         let email = this.state.email
         let password = this.state.password
         let contador = 0
-        if(!email.includes("@gmail.com")){
+        if(!email.includes("@")){
            this.setState({
             inputCheck: false
            })
            contador++   
         }
 
-        if(password.length > 0 &&  password.length < 6 || password.length > 9){
+        if(password.length > 0 &&  password.length < 5 || password.length > 9){
             this.setState({
                 inputCheckPassword: false
             })
@@ -60,11 +62,17 @@ class Login extends Component {
         }
     }
 
-    /*
-    async login(){
-       await auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-    }
-    */
+    
+        signInWithEmailAndPasswordHandler = () => {
+        signInWithEmailAndPassword(getAuth(), this.state.email, this.state.password)
+            .then(() => {
+              history.push("/person");
+            })
+            .catch(error => {
+                console.error("Error signing in with password and email", error);
+            });
+      };
+
 
     render() { 
         return ( 
@@ -87,12 +95,12 @@ class Login extends Component {
                         <input type={this.state.visibility ? "text" : "password"} required name='password' value={this.state.password} onChange={this.onChangeValue} className='form-control shadow' />
                         <button class="btn btn-outline-secondary shadow" type="button" onClick={this.togglePasswordVisibility}>Mostrar</button>
                     </div>
-                    {this.state.inputCheckPassword ?  "" : <h6 className='text-danger'>Se necesitan entre 6 y 9 caracteres</h6>}
+                    {this.state.inputCheckPassword ?  "" : <h6 className='text-danger'>Se necesitan entre 5 y 9 caracteres</h6>}
                 </div>
             </div>
             <div className='row mt-5 w-100'>
                 <div className='col-md-12'>
-                    <button className={`btn btn-info w-100 shadow ${this.state.inputCheck ? "" : "disabled"}`}>Confirmar</button>
+                    <button className={`btn btn-info w-100 shadow ${this.state.inputCheck ? "" : "disabled"}`} onClick={this.signInWithEmailAndPasswordHandler} >Confirmar</button>
                 </div>
             </div>
             <div className='row'>

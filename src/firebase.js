@@ -1,7 +1,7 @@
-import firebase from "firebase/app";
-import {getAuth} from "firebase/auth";
-import {getFirestore} from "firebase/firestore";
-import { initializeApp } from "firebase/app";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore"
+import { initializeApp } from "firebase/compat/app";
 import { functions } from "firebase";
 
 /*
@@ -35,7 +35,7 @@ firebase.initializeApp(firebaseConfig);
   
   
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+ const app = firebase.initializeApp(firebaseConfig);
 
 
 
@@ -43,8 +43,8 @@ firebase.initializeApp(firebaseConfig);
 
 /////////////////////////////////////////////////////////
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+export const auth = getAuth(app);
+export const firestore = getFirestore(app);
 
 const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => {
@@ -54,16 +54,16 @@ export const signInWithGoogle = () => {
 export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;
 
-  const userRef = firestore.doc(`users/${user.uid}`);
+  const userRef = firestore.doc(`usuarios/${user.uid}`);
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    const { email, username, photoURL } = user;
+    const { email, username, profile_image } = user;
     try {
       await userRef.set({
         username,
         email,
-        photoURL,
+        profile_image,
         ...additionalData
       });
     } catch (error) {
@@ -76,7 +76,7 @@ export const generateUserDocument = async (user, additionalData) => {
 const getUserDocument = async uid => {
   if (!uid) return null;
   try {
-    const userDocument = await firestore.doc(`users/${uid}`).get();
+    const userDocument = await firestore.doc(`usuarios/${uid}`).get();
 
     return {
       uid,

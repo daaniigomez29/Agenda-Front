@@ -119,7 +119,7 @@ class EditPerson extends Component {
         return (
             <div className="container position-formAddPerson shadow">
                 {this.state.correctAdded ? 
-                <AlertMessage typeAlert="success" showMessage={this.state.showMessageError} message="La inserción se ha realizado correctamente"/> : <AlertMessage typeAlert="danger" showMessage={this.state.showMessageError} message="El contacto no se ha podido añadir"/>
+                <AlertMessage typeAlert="success" showMessage={this.state.showMessageError} message="La inserción se ha realizado correctamente"/> : <AlertMessage typeAlert="danger" showMessage={this.state.showMessageError} message="El contacto no se ha podido editar"/>
                 }
                 <div className='row p-2'>
                     <div className='col-md-12'>
