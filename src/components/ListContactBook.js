@@ -15,6 +15,7 @@ class ListContactBook extends Component {
         this.delete = this.delete.bind(this)
         this.state = {
             contacts: [],
+            nContacts: 0,
             currentContact: null,
             currentIndex: -1,
             searchName: "",
@@ -40,6 +41,7 @@ class ListContactBook extends Component {
                     contactsFlag: response.data,
                     progress: response.data.length,
                 });
+                this.props.setLength(response.data.length)
             })
             .catch(e => {
                 console.log(e)
@@ -108,6 +110,7 @@ class ListContactBook extends Component {
     }
 
     render() {
+        const userRegistered = this.props.userRegistered
         const { contacts, currentContact, currentIndex, name, contactsSearched, contactsFlag, currentPage, contactsPerPage } = this.state
         const indexOfLastContact = currentPage * contactsPerPage;
         const indexOfFirstContact = indexOfLastContact - contactsPerPage;
@@ -203,10 +206,15 @@ class ListContactBook extends Component {
                                     </label>{" "}
                                     {currentContact.birthday}
                                 </div>
-                                <div className='d-flex gap-2'>
+                                {userRegistered ? 
+                                 <div className='d-flex gap-2'>
                                     <Link to={"/person/" + currentContact.id} className="badge bg-info">Editar</Link>
                                     <button className="badge bg-danger" onClick={() => { this.delete(currentContact.id) }}>Eliminar</button>
                                 </div>
+                                :
+                                ""
+                                    }
+                            
                                 <div className='w-100 d-flex justify-content-center'>
                                 <img src={bisbal_vegano}/>
                                 </div>

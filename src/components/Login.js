@@ -17,6 +17,16 @@ class Login extends Component {
         }
     }
 
+    signInWithEmailAndPasswordHandler = () => {
+        signInWithEmailAndPassword(getAuth(), this.state.email, this.state.password)
+            .then(() => {
+              history.push("/person");
+            })
+            .catch(error => {
+                console.error("Error signing in with password and email", error);
+            });
+      };
+
     onChangeValue = (e) => {
         const nameValue = e.target.name;
         const formValue = e.target.value;
@@ -33,10 +43,7 @@ class Login extends Component {
         let email = this.state.email
         let password = this.state.password
         let contador = 0
-        if(!email.includes("@")){
-           this.setState({
-            inputCheck: false
-           })
+        if(!email.includes("@") || password.length == 0){
            contador++   
         }
 
@@ -62,16 +69,7 @@ class Login extends Component {
         }
     }
 
-    
-        signInWithEmailAndPasswordHandler = () => {
-        signInWithEmailAndPassword(getAuth(), this.state.email, this.state.password)
-            .then(() => {
-              history.push("/person");
-            })
-            .catch(error => {
-                console.error("Error signing in with password and email", error);
-            });
-      };
+
 
 
     render() { 

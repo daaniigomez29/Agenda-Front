@@ -56,9 +56,14 @@ class EditPerson extends Component {
     
     handleSubmit = () =>{
         let data = this.state;
+
+        this.setState({
+            showMessageError : "",
+        })
+
         if(this.checkInputs()){
-            ContactDataService.editContact(this.state.id, data).
-            then(response =>{
+            ContactDataService.editContact(this.state.id, data)
+            .then(response =>{
                 console.log(response)
                 this.setState({
                     correctAdded : true,
@@ -119,7 +124,7 @@ class EditPerson extends Component {
         return (
             <div className="container position-formAddPerson shadow">
                 {this.state.correctAdded ? 
-                <AlertMessage typeAlert="success" showMessage={this.state.showMessageError} message="La inserción se ha realizado correctamente"/> : <AlertMessage typeAlert="danger" showMessage={this.state.showMessageError} message="El contacto no se ha podido editar"/>
+                <AlertMessage typeAlert="success" showMessage={this.state.showMessageError} message="El contacto se ha editado correctamente"/> : <AlertMessage typeAlert="danger" showMessage={this.state.showMessageError} message="El contacto no se ha podido editar"/>
                 }
                 <div className='row p-2'>
                     <div className='col-md-12'>

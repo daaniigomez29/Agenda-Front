@@ -42,6 +42,7 @@ class AddPerson extends Component {
             this.setState({
                 correctAdded : true,
             })
+            this.props.setLength(this.props.diaryLength + 1)
         })
         .catch(e =>{
             this.setState({
@@ -82,7 +83,7 @@ class AddPerson extends Component {
         }
         if(birthday == null || birthday.length == 0){
             contador++
-            console.log("Error en cumpleaño")
+            console.log("Error en cumpleaños")
         }
         console.log(contador)
         if(contador > 0){
@@ -96,7 +97,7 @@ class AddPerson extends Component {
         return (
             <div className="container shadow">
                 {this.state.correctAdded ? 
-                <AlertMessage typeAlert="success" showMessage={this.state.showMessageError} message="La inserción se ha realizado correctamente"/> : <AlertMessage typeAlert="danger" showMessage={this.state.showMessageError} message="El contacto no se ha podido añadir"/>
+                <AlertMessage typeAlert="success" showMessage={this.state.showMessageError} message="El contacto se ha añadido correctamente"/> : <AlertMessage typeAlert="danger" showMessage={this.state.showMessageError} message="El contacto no se ha podido añadir"/>
                 }
                 <div className='row p-2'>
                     <div className='col-md-12'>
@@ -138,7 +139,7 @@ class AddPerson extends Component {
                 </div>
                 <div className='row p-2'>
                     <div className='col-md-12'>
-                    <button onClick={() => this.handleSubmit()} className='btn btn-primary'>Confirmar</button>
+                    <button onClick={() => this.handleSubmit()} className={`btn btn-primary ${this.props.diaryLength >= 50 ? "disabled" : ""} `}>Confirmar</button>
                     </div>
                 </div>
             </div>

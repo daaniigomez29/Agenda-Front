@@ -15,17 +15,22 @@ import UserDetails from "./components/UserDetails"
 
 
 class App extends Component {
-  
   constructor(){
     super()
     this.state = {
-      userRegistered : false
+      userRegistered : true
     }
   }
 
   cargarMenu = () =>{
     let subMenu = document.getElementById("subMenu");
     subMenu.classList.toggle("open-menu")
+  }
+
+  setLength = (n) => {
+    this.setState({
+      diaryLength: n
+    })
   }
   
   render(){
@@ -44,11 +49,16 @@ class App extends Component {
                 Contactos
               </Link>
             </li>
-            <li className="nav-item">
+            {
+              this.state.userRegistered ? 
+              <li className="nav-item">
               <Link to={"/add"} className="nav-link">
                 Añadir contacto
               </Link>
-            </li>
+            </li> :
+            ""
+            }
+            
             </div>
             <div className="container-profile d-flex align-items-end">
             <li className="nav-item">
@@ -61,9 +71,9 @@ class App extends Component {
         </div>
         <div className="positionDivRoute d-flex justify-content-center align-items-center">
           {/*El en switch se renderizarán todas los compoentes cuya URL coincidan con la activa*/}
-            <Route exact path={["/", "/person"]} component={ListContactBook} />
+            <Route exact path={["/", "/person"]} render={(props) => <ListContactBook {...props} setLength={this.setLength} userRegistered={this.state.userRegistered}/>} />
             <Route path="/person/:id" component={EditPerson} />
-            <Route exact path="/add" component={AddPerson} />
+            <Route exact path="/add" render={(props) => <AddPerson {...props} diaryLength={this.state.diaryLength} setLength={this.setLength}/>} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={UserDetails} />
